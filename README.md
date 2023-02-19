@@ -1,2 +1,2 @@
-# hot-note
-hot-note
+login:      user@gmail.com
+password:   jdbcDefault
