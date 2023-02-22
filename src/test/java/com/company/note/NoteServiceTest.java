@@ -25,7 +25,7 @@ class NoteServiceTest {
         noteAdd.setTitle("TestNoteAdd");
         noteAdd.setContent("TestNoteContentAdd");
         noteService.add(noteAdd);
-        Long id= noteAdd.getId();
+        String id= noteAdd.getId();
 
         Assertions.assertEquals(noteAdd,noteService.getById(id));
     }
@@ -36,7 +36,7 @@ class NoteServiceTest {
         noteDelete.setTitle("TestNoteDelete");
         noteDelete.setContent("TestNoteContentDelete");
         noteService.add(noteDelete);
-        Long id= noteDelete.getId();
+        String id= noteDelete.getId();
         System.out.println(id);
         System.out.println(noteDelete);
         noteService.deleteById(id);
@@ -51,7 +51,7 @@ class NoteServiceTest {
         noteForUpdate.setTitle("TestNoteUpdate");
         noteForUpdate.setContent("TestNoteContentUpdate");
         noteService.add(noteForUpdate);
-        Long id= noteForUpdate.getId();
+        String id= noteForUpdate.getId();
         Note noteUpdate = new Note();
         noteUpdate.setId(id);
         noteUpdate.setTitle("TestNoteUpdateNew");
@@ -67,7 +67,7 @@ class NoteServiceTest {
         noteGetById.setTitle("TestNoteGetById");
         noteGetById.setContent("TestNoteContentGetById");
         noteService.add(noteGetById);
-        Long id= noteGetById.getId();
+        String id= noteGetById.getId();
 
         Assertions.assertEquals(noteGetById,noteService.getById(id));
 
@@ -99,7 +99,7 @@ class NoteServiceTest {
         note1FromList.setTitle("TestNote1FromList");
         note1FromList.setContent("TestNote1FromListContent");
         noteService.add(note1FromList);
-        Long id1= note1FromList.getId();
+        String id1= note1FromList.getId();
 
         String pattern="Test";
 
