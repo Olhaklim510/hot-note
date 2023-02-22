@@ -2,6 +2,7 @@ package com.company.note;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,8 +35,8 @@ public class NoteController {
 
     @PostMapping("/create")
     public ModelAndView createNote(Note note) {
-        noteService.add(note);
-        return new ModelAndView("redirect:/note/list");
+            noteService.add(note);
+            return new ModelAndView("redirect:/note/list");
     }
 
     @GetMapping("/edit")
