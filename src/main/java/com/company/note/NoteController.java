@@ -40,7 +40,7 @@ public class NoteController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView getEditView(@RequestParam("id") Long id) {
+    public ModelAndView getEditView(@RequestParam("id") String id) {
         ModelAndView result = new ModelAndView("edit");
         result.addObject("editNote", noteService.getById(id));
         return result;
