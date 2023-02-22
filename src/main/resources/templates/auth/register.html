@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+  <style>
+    body {
+      background-color: #ffffcc;
+      font-family: Arial, sans-serif;
+    }
+    .header {
+      text-align: center;
+      font-size: 24px;
+      margin: 20px;
+    }
+    .login-box {
+      margin: 50px auto;
+      width: 300px;
+      height: 180px;
+      border-radius: 20px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 20px;
+      background-color: #f2f2f2;
+      outline: none;
+    }
+    .submit-button,
+    .back-button {
+      display: inline-block;
+      width: 80px;
+      height: 40px;
+      border-radius: 20px;
+      margin: 20px;
+      color: #fff;
+      text-align: center;
+      line-height: 40px;
+      cursor: pointer;
+      font-size: 16px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    .submit-button {
+      background-color: #4CAF50;
+    }
+    .back-button {
+      background-color: #2196F3;
+    }
+    .submit-button:hover,
+    .back-button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <p><i><big>Enter the username and password</big></i></p>
+</div>
+<div class="login-box">
+  <form action="/register" method="post">
+    <div style="text-align: center;">
+      <input type="text" placeholder="Username" name="username">
+      <input type="password" placeholder="Password" name="password">
+    </div>
+    <div style="text-align: center;">
+      <button class="submit-button" type="submit">Submit</button>
+      <a href="/login"><button class="back-button" type="button">Back</button></a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
