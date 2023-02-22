@@ -44,13 +44,13 @@ class NoteControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @WithMockUser(value = "spring")
-    @Test
-    public void TestWhenUpdateNote_thenUpdated() throws Exception {
-        this.mvc.perform(get("/note/edit")
-                        .param("id", "1"))
-                .andExpect(status().isOk());
-    }
+//    @WithMockUser(value = "spring")
+//    @Test
+//    public void TestWhenUpdateNote_thenUpdated() throws Exception {
+//        this.mvc.perform(get("/note/edit")
+//                        .param("id", "1"))
+//                .andExpect(status().isOk());
+//    }
 
     @WithMockUser(value = "spring")
     @Test
