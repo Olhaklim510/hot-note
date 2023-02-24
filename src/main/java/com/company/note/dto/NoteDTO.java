@@ -7,12 +7,14 @@ public class NoteDTO {
     private String id;
     private String title;
     private String content;
+    private String privacy;
 
     public static NoteDTO fromNote(Note note){
         NoteDTO result = new NoteDTO();
         result.setId(note.getId());
         result.setTitle(note.getTitle());
         result.setContent(note.getContent());
+        result.setPrivacy(note.getPrivacy());
         return result;
     }
 
@@ -21,6 +23,7 @@ public class NoteDTO {
         note.setId(noteDTO.getId());
         note.setTitle(noteDTO.getTitle());
         note.setContent(noteDTO.getContent());
+        note.setPrivacy(noteDTO.getPrivacy());
         return note;
     }
 
@@ -50,18 +53,21 @@ public class NoteDTO {
     public void setContent(String content) {
         this.content = content;
     }
+    public String getPrivacy() {return privacy;}
+    public void setPrivacy(String privacy) {this.privacy = privacy;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NoteDTO noteDTO = (NoteDTO) o;
-        return Objects.equals(id, noteDTO.id) && Objects.equals(title, noteDTO.title) && Objects.equals(content, noteDTO.content);
+        return Objects.equals(id, noteDTO.id) && Objects.equals(title, noteDTO.title) && Objects.equals(content, noteDTO.content)
+                && Objects.equals(privacy,noteDTO.privacy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content);
+        return Objects.hash(id, title, content, privacy);
     }
 
     @Override
@@ -70,6 +76,7 @@ public class NoteDTO {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", privacy='"+ privacy + '\'' +
                 '}';
     }
 }

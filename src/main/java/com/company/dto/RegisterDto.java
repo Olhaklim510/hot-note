@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Data
 public class RegisterDto {
-    private String username;
+    private static String username;
     private String password;
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 

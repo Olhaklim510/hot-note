@@ -3,6 +3,7 @@ package com.company.note;
 import com.company.exception.ContentException;
 import com.company.exception.TitleException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -60,5 +61,15 @@ public class NoteService {
                                 note.getContent().toLowerCase().contains(pattern.toLowerCase())
                                         || note.getTitle().toLowerCase().contains(pattern.toLowerCase()))
                 .toList();
+    }
+    public String getPublicNoteById(String id) {
+        String note = null;
+
+        SimpleJpaRepository repository = null;
+        if(repository.existsById(id) && getById(id).getPrivacy().equals("PUBLIC")) {
+            note = String.valueOf(getById(id));
+        }
+
+        return note;
     }
 }
