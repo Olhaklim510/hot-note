@@ -15,11 +15,11 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     public synchronized void add(Note note) {
-        if(note.getTitle().length() <5 || note.getTitle().length() >100){
+        if (note.getTitle().length() < 5 || note.getTitle().length() > 100) {
             throw new TitleException("The name of the note must be between 5 and 100 characters inclusive.");
-        } else if (note.getContent().length() <5 || note.getContent().length() >10000) {
+        } else if (note.getContent().length() < 5 || note.getContent().length() > 10000) {
             throw new ContentException("The content of the note must be between 5 and 10,000 characters inclusive.");
-        } else {
+        }else {
             UUID uuid = UUID.randomUUID();
             note.setId(uuid.toString());
             noteRepository.save(note);
@@ -36,9 +36,9 @@ public class NoteService {
     public synchronized void update(Note note) {
         if (!noteRepository.findById(note.getId()).isPresent()) {
             throw new NoSuchElementException("This note doesn't exist");
-        } else if(note.getTitle().length() <5 || note.getTitle().length() >100){
+        } else if (note.getTitle().length() < 5 || note.getTitle().length() > 100) {
             throw new TitleException("The name of the note must be between 5 and 100 characters inclusive.");
-        } else if (note.getContent().length() <5 || note.getContent().length() >10000) {
+        } else if (note.getContent().length() < 5 || note.getContent().length() > 10000) {
             throw new ContentException("The content of the note must be between 5 and 10,000 characters inclusive.");
         } else {
             noteRepository.save(note);
@@ -46,7 +46,7 @@ public class NoteService {
     }
 
     public synchronized Note getById(String id) {
-        return noteRepository.findById(id).orElseThrow(()->new NoSuchElementException("This note doesn't exist"));
+        return noteRepository.findById(id).orElseThrow(() -> new NoSuchElementException("This note doesn't exist"));
     }
 
     public synchronized List<Note> findAllAvailableForSpecificUser(String username) {
@@ -55,10 +55,10 @@ public class NoteService {
 
     public synchronized List<Note> searchNote(String username, String pattern) {
         return findAllAvailableForSpecificUser(username)
-                        .stream()
-                        .filter(note ->
-                                note.getContent().toLowerCase().contains(pattern.toLowerCase())
-                                        || note.getTitle().toLowerCase().contains(pattern.toLowerCase()))
+                .stream()
+                .filter(note ->
+                        note.getContent().toLowerCase().contains(pattern.toLowerCase())
+                                || note.getTitle().toLowerCase().contains(pattern.toLowerCase()))
                 .toList();
     }
 }
