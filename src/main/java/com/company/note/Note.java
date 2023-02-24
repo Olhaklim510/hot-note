@@ -1,63 +1,29 @@
 package com.company.note;
 
+import com.company.note.noteEnum.NoteType;
+import com.company.user.UserEntity;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 
 @Table(name = "note")
 @Component
 @Entity
+@Data
 public class Note {
     @Id
     private String id;
+    @Column(name = "owner")
+    private String owner;
     private String title;
     private String content;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "Note{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Note note = (Note) o;
-        return Objects.equals(id, note.id) && Objects.equals(title, note.title) && Objects.equals(content, note.content);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, content);
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "note_type")
+    private NoteType noteType;
 }

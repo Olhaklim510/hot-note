@@ -49,12 +49,12 @@ public class NoteService {
         return noteRepository.findById(id).orElseThrow(()->new NoSuchElementException("This note doesn't exist"));
     }
 
-    public synchronized List<Note> listAll() {
-        return noteRepository.findAll();
+    public synchronized List<Note> findAllAvailableForSpecificUser(String username) {
+        return noteRepository.findAllAvailableForSpecificUser(username);
     }
 
-    public synchronized List<Note> searchNote(String pattern) {
-        return listAll()
+    public synchronized List<Note> searchNote(String username, String pattern) {
+        return findAllAvailableForSpecificUser(username)
                         .stream()
                         .filter(note ->
                                 note.getContent().toLowerCase().contains(pattern.toLowerCase())

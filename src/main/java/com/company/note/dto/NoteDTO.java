@@ -1,18 +1,26 @@
 package com.company.note.dto;
 
 import com.company.note.Note;
-import java.util.Objects;
+import com.company.note.noteEnum.NoteType;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class NoteDTO {
     private String id;
+    private String owner;
     private String title;
     private String content;
+    private NoteType noteType;
 
     public static NoteDTO fromNote(Note note){
         NoteDTO result = new NoteDTO();
         result.setId(note.getId());
         result.setTitle(note.getTitle());
         result.setContent(note.getContent());
+        result.setNoteType(note.getNoteType());
+        result.setOwner(note.getOwner());
         return result;
     }
 
@@ -21,55 +29,8 @@ public class NoteDTO {
         note.setId(noteDTO.getId());
         note.setTitle(noteDTO.getTitle());
         note.setContent(noteDTO.getContent());
+        note.setNoteType(noteDTO.getNoteType());
+        note.setOwner(noteDTO.getOwner());
         return note;
-    }
-
-    public NoteDTO() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NoteDTO noteDTO = (NoteDTO) o;
-        return Objects.equals(id, noteDTO.id) && Objects.equals(title, noteDTO.title) && Objects.equals(content, noteDTO.content);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, content);
-    }
-
-    @Override
-    public String toString() {
-        return "NoteDTO{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
     }
 }
