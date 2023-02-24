@@ -1,8 +1,8 @@
 package com.company.note;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,9 +13,10 @@ public class NoteController {
     private NoteService noteService;
 
     @GetMapping("/list")
-    public ModelAndView getListAllNotes() {
+    public ModelAndView getListAllNotes(Authentication authentication) {
         ModelAndView result = new ModelAndView("list");
-        result.addObject("listNotes", noteService.listAll());
+        result.addObject("listNotes", noteService
+                .findAllAvailableForSpecificUser(authentication.getName()));
         return result;
     }
 
@@ -34,9 +35,10 @@ public class NoteController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createNote(Note note) {
-            noteService.add(note);
-            return new ModelAndView("redirect:/note/list");
+    public ModelAndView createNote(Note note, Authentication authentication) {
+        note.setOwner(authentication.getName());
+        noteService.add(note);
+        return new ModelAndView("redirect:/note/list");
     }
 
     @GetMapping("/edit")
@@ -53,9 +55,9 @@ public class NoteController {
     }
 
     @GetMapping("/search")
-    public ModelAndView searchNote(String pattern) {
-        ModelAndView result=new ModelAndView("list");
-        result.addObject("listNotes", noteService.searchNote(pattern));
+    public ModelAndView searchNote(String pattern, Authentication authentication) {
+        ModelAndView result = new ModelAndView("list");
+        result.addObject("listNotes", noteService.searchNote(authentication.getName(), pattern));
         return result;
     }
 }

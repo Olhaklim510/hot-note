@@ -15,23 +15,24 @@
 <div class="container mt-3">
   <div class="card">
     <div class="card-header">
-      <h2>Створення нотатки </h2>
+      <h2>Create note </h2>
     </div>
 
     <div class="card-body">
       <table class="table">
 
         <form action="/note/create" method="POST" th:action="@{/note/create}" th:object="${createNote}">
-
+            <input type="text" th:field="*{owner}" hidden/>
           <div class="container">
             <div class="mb-3-inline">
 <!--              <label for="exampleFormControlInput1" class="form-label">Назва</label>-->
-              <h4>Назва</h4>
+              <h4>Title</h4>
               <input type="text" class="form-control" id="exampleFormControlInput1" maxlength="100"  th:field="*{title}"  placeholder="title">
             </div>
 
             <div class="mb-3">
 <!--              <label for="exampleFormControlTextarea1" class="form-label"></label>-->
+                <h4>Content</h4>
               <textarea class="form-control"  id="exampleFormControlTextarea1" maxlength="10000" th:field="*{content}" rows="20" placeholder="content"></textarea>
             </div>
 
@@ -39,22 +40,18 @@
               <div class="card-footer">
 
                   <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                      <label class="form-check-label" for="flexRadioDefault1">
-                          Публічна
-                      </label>
+                      <input class="form-check-input" type="radio" name="noteType" id="flexRadioDefault1" value="PRIVATE">
+                      <label class="form-check-label" for="flexRadioDefault1">PRIVATE</label>
                   </div>
                   <div class="form-check-inline">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                      <label class="form-check-label" for="flexRadioDefault2">
-                          Приватна
-                      </label>
+                      <input class="form-check-input" type="radio" name="noteType" id="flexRadioDefault2" value="PUBLIC" checked>
+                      <label class="form-check-label" for="flexRadioDefault2">PUBLIC</label>
                   </div>
 
 
                   <div  style="text-align: right;">
-                      <a href="/note/list" type="submit" class="btn btn-sm btn-success">Відміна</a>
-                      <button value="0" name="id" type="submit" class="btn btn-sm btn-success">Збрегти</button>
+                      <a href="/note/list" type="submit" class="btn btn-sm btn-success">Back</a>
+                      <button value="0" name="id" type="submit" class="btn btn-sm btn-success">Save</button>
 
                   </div>
 

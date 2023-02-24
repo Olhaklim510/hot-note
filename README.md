@@ -15,6 +15,7 @@ It's a web application that allows you to store notes with its simplistic UI and
 ## How to start:
 * By default, the application uses jdbc:h2:mem:testdb
 * To use PostgreSQL you need to configure the following environment variables: {DB_PATH}, {DB_USERNAME}, {DB_PASSWORD}
+* Default username=admin, password=super_secret_password
 
 
 ## Stack

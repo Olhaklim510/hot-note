@@ -28,20 +28,28 @@
     <div class="card-body">
       <table class="table">
         <tr>
-          <th>Title</th>
-          <th>Content</th>
+          <th>  <div class="text-center">Type </div> </th>
+          <th> <div class="text-center">Title</div></th>
+          <th><div class="text-center">Content</div></th>
+          <th><div class="text-center">Actions</div></th>
         </tr>
         <tr th:each="note: ${listNotes}">
-          <td th:text="${note.getTitle()}"></td>
+          <td><div class="text-center"><span th:text="${note.getNoteType} "></span></div></td>
+          <td ><div class="text-center"><span th:text="${note.getTitle()}"></span></div></td>
+          <td> <div class="text-center">
+            <span th:text="${note.getContent()} "></span> </div></td>
           <td>
-            <span th:text="${note.getContent()} "></span>
-            <div class="d-grid gap-3 d-md-flex justify-content-md-end">
+            <div class="text-center">
+<!--            <div class="d-grid gap-3 d-md-flex justify-content-md-end">-->
             <a th:href="'/note/delete?id='+${note.getId()}"
                class="btn btn-sm btn btn-danger">Delete</a>
             <a th:href="'/note/edit?id='+${note.getId()}"
                class="btn btn-sm btn-success">Edit</a>
+              <a th:href="'/note/share?id='+${note.getId()}"
+                 class="btn btn-sm btn-secondary">Copy link</a>
             </div>
           </td>
+
         </tr>
       </table>
     </div>

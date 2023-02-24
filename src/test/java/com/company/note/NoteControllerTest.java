@@ -1,5 +1,6 @@
 package com.company.note;
 
+import com.company.note.noteEnum.NoteType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,14 +24,7 @@ class NoteControllerTest {
 
     @Autowired
     private NoteService noteService;
-
-    @BeforeEach
-    public void createNoteTest() {
-        Note note = new Note();
-        note.setTitle("TestNoteTitle");
-        note.setContent("TestNoteContent");
-        noteService.add(note);
-    }
+    private String id=UUID.randomUUID().toString();
 
     @WithMockUser(value = "spring")
     @Test
@@ -40,24 +37,24 @@ class NoteControllerTest {
     @Test
     public void whenDeleteNote_thenOk() throws Exception {
         this.mvc.perform(get("/note/list")
-                        .param("id", "Test"))
+                        .param("id", id))
                 .andExpect(status().isOk());
     }
 
-//    @WithMockUser(value = "spring")
-//    @Test
-//    public void TestWhenUpdateNote_thenUpdated() throws Exception {
-//        this.mvc.perform(get("/note/edit")
-//                        .param("id", "1"))
-//                .andExpect(status().isOk());
-//    }
+    @WithMockUser(value = "spring")
+    @Test
+    public void TestWhenUpdateNote_thenUpdated() throws Exception {
+        this.mvc.perform(get("/note/edit")
+                        .param("id", id))
+                .andExpect(status().is(400));
+    }
 
     @WithMockUser(value = "spring")
     @Test
     public void TestWhenSearchNote_thenOK() throws Exception {
         this.mvc.perform(get("/note/search")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("pattern", "Test"))
+                        .param("pattern", id))
                 .andExpect(status().isOk());
     }
 
