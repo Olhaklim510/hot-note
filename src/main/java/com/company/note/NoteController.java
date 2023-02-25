@@ -1,5 +1,6 @@
 package com.company.note;
 
+import com.company.exception.ShareException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,17 @@ public class NoteController {
     public ModelAndView searchNote(String pattern, Authentication authentication) {
         ModelAndView result = new ModelAndView("list");
         result.addObject("listNotes", noteService.searchNote(authentication.getName(), pattern));
+        return result;
+    }
+
+    @GetMapping("/share")
+    public ModelAndView getShareView(Note note, Authentication authentication) {
+        if (!authentication.getName().equals(note.getOwner())) {
+            throw new ShareException("This note does not exist :(");
+        }
+        ModelAndView result = new ModelAndView("share");
+        result.addObject("shareNote", noteService.getById(note.getId()));
+
         return result;
     }
 }

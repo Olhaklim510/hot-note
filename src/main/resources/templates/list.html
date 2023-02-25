@@ -29,14 +29,14 @@
       <table class="table">
         <tr>
           <th>  <div class="text-center">Type </div> </th>
-          <th> <div class="text-center">Title</div></th>
-          <th><div class="text-center">Content</div></th>
+          <th> <div class="text-center"  style="max-width: 150px;"> Title </div></th>
+          <th><div class="text-center"  style="max-width: 150px;"> Content </div></th>
           <th><div class="text-center">Actions</div></th>
         </tr>
         <tr th:each="note: ${listNotes}">
           <td><div class="text-center"><span th:text="${note.getNoteType} "></span></div></td>
-          <td ><div class="text-center"><span th:text="${note.getTitle()}"></span></div></td>
-          <td> <div class="text-center">
+          <td ><div class="d-inline-block text-truncate" style="max-width: 150px;"><span th:text="${note.getTitle()}"></span></div></td>
+          <td> <div class="d-inline-block text-truncate" style="max-width: 150px;">
             <span th:text="${note.getContent()} "></span> </div></td>
           <td>
             <div class="text-center">
@@ -45,7 +45,7 @@
                class="btn btn-sm btn btn-danger">Delete</a>
             <a th:href="'/note/edit?id='+${note.getId()}"
                class="btn btn-sm btn-success">Edit</a>
-              <a th:href="'/note/share?id='+${note.getId()}"
+              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}"
                  class="btn btn-sm btn-secondary">Copy link</a>
             </div>
           </td>
