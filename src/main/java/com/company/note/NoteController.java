@@ -22,7 +22,10 @@ public class NoteController {
     }
 
     @GetMapping("/delete")
-    public ModelAndView deleteNote(Note note) {
+    public ModelAndView deleteNote(Note note, Authentication authentication) {
+        if (!authentication.getName().equals(note.getOwner())) {
+            throw new ShareException("This note does not exist :(");
+        }
         ModelAndView result = new ModelAndView("redirect:/note/list");
         noteService.deleteById(note.getId());
         return result;
@@ -43,9 +46,12 @@ public class NoteController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView getEditView(@RequestParam("id") String id) {
+    public ModelAndView getEditView(Note note, Authentication authentication) {
+        if (!authentication.getName().equals(note.getOwner())) {
+            throw new ShareException("This note does not exist :(");
+        }
         ModelAndView result = new ModelAndView("edit");
-        result.addObject("editNote", noteService.getById(id));
+        result.addObject("editNote", noteService.getById(note.getId()));
         return result;
     }
 
