@@ -16,6 +16,7 @@ public class NoteController {
     @GetMapping("/list")
     public ModelAndView getListAllNotes(Authentication authentication) {
         ModelAndView result = new ModelAndView("list");
+        result.addObject("username",authentication.getName());
         result.addObject("listNotes", noteService
                 .findAllAvailableForSpecificUser(authentication.getName()));
         return result;
