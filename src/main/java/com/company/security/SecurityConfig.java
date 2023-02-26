@@ -33,7 +33,9 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/register").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**").authenticated()
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/note/list", true)
+                .and()
+                .formLogin().loginPage("/login")
+                .defaultSuccessUrl("/note/list", true)
                 .and()
                 .build();
     }
