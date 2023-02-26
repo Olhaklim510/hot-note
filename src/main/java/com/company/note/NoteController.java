@@ -65,6 +65,7 @@ public class NoteController {
     @GetMapping("/search")
     public ModelAndView searchNote(String pattern, Authentication authentication) {
         ModelAndView result = new ModelAndView("list");
+        result.addObject("username",authentication.getName());
         result.addObject("listNotes", noteService.searchNote(authentication.getName(), pattern));
         return result;
     }

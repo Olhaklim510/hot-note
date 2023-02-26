@@ -57,7 +57,7 @@
           <td> <div class="d-inline-block text-truncate" style="max-width: 150px;">
             <span th:text="${note.getContent()} "></span> </div></td>
           <td>
-            <div class="text-center">
+            <div class="text-center" >
 <!--            <div class="d-grid gap-3 d-md-flex justify-content-md-end">-->
 <!--            <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}"-->
 <!--               class="btn btn-sm btn btn-danger">Delete</a>-->
@@ -69,8 +69,8 @@
 <!--            <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}"-->
 <!--               class="btn btn-sm btn-success">Edit</a>-->
 
-              <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}">
-                <img src="https://cdn1.iconfinder.com/data/icons/gear-wheel-1/164/14-512.png" alt="Edit" width="30" height="30">
+              <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}" style="padding: 0px 20px;">
+                <img src="https://cdn.icon-icons.com/icons2/629/PNG/512/edit-a-document-interface-symbol-of-stroke_icon-icons.com_57848.png" alt="Edit" width="30" height="30">
               </a>
 
 <!--              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}"-->

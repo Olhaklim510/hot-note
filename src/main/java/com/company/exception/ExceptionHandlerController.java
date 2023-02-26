@@ -17,7 +17,8 @@ public class ExceptionHandlerController {
         if (ex.substring(22,ex.length()).equals("TitleException") ||
                    ex.substring(22,ex.length()).equals("ContentException")) {
             modelAndView.addObject("http_page","https://http.cat/400.jpg");
-        } else {
+        } else if (ex.substring(22,ex.length()).equals("ShareException") ||
+                   ex.substring(10,ex.length()).equals("NoSuchElementException")) {
             modelAndView.addObject("http_page","https://http.cat/404.jpg");
         }
 
