@@ -41,9 +41,9 @@
           <td>
             <div class="text-center">
 <!--            <div class="d-grid gap-3 d-md-flex justify-content-md-end">-->
-            <a th:href="'/note/delete?id='+${note.getId()}"
+            <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}"
                class="btn btn-sm btn btn-danger">Delete</a>
-            <a th:href="'/note/edit?id='+${note.getId()}"
+            <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}"
                class="btn btn-sm btn-success">Edit</a>
               <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}"
                  class="btn btn-sm btn-secondary">Copy link</a>
