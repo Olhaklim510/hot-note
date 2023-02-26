@@ -15,6 +15,10 @@
 </head>
 <body>
     <h1 style="text-align: center;">Error!</h1>
+    <picture >
+        <img th:src="${http_page}" alt="error.jpg" style="text-align: center; display: block; margin-left: auto; margin-right: auto;">
+    </picture>
+
     <h2 th:text="${exceptionMessage}" style="text-align: center;"></h2>
     <p style="text-align: center;">
         <a href="/note/list"
