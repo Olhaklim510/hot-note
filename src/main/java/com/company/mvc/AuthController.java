@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -36,16 +37,43 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public RedirectView processRegistrationForm(@ModelAttribute RegisterDto registerDto) {
+    public ModelAndView processRegistrationForm(@ModelAttribute RegisterDto registerDto) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("auth/register");
+
+        String username = registerDto.getUsername();
+        String password = registerDto.getPassword();
+
+        if (!username.matches("[A-Za-z0-9]*")) {
+            modelAndView.addObject("error", "Username must only contain letters and numbers");
+            return modelAndView;
+        }
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            modelAndView.addObject("error", "Username already exists");
+            return modelAndView; // return the ModelAndView object with error message
+        }
+
+        if (username.length() < 5 || username.length() > 50) {
+            modelAndView.addObject("error", "Username length must be between 5 and 50 characters");
+            return modelAndView;
+        }
+
+        if (password.length() < 8 || password.length() > 100) {
+            modelAndView.addObject("error", "Password length must be between 8 and 100 characters");
+            return modelAndView;
+        }
+
         UserEntity user = new UserEntity();
-        user.setUsername(registerDto.getUsername());
-        user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         Role role = roleRepository.findByName("USER").get();
         user.setRoles(Collections.singletonList(role));
         userRepository.save(user);
-
-        return new RedirectView("/login");
+        modelAndView.setViewName("redirect:auth/login");
+        return modelAndView;
     }
+
 
     @GetMapping("/login")
     public String showLoginForm() {
