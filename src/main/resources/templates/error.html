@@ -7,13 +7,22 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        body {
+      background-color: #ffffcc; /* light yellow background color */
+            }
+    </style>
 </head>
 <body>
     <h1 style="text-align: center;">Error!</h1>
+    <picture >
+        <img th:src="${http_page}" alt="error.jpg" style="text-align: center; display: block; margin-left: auto; margin-right: auto;">
+    </picture>
+
     <h2 th:text="${exceptionMessage}" style="text-align: center;"></h2>
     <p style="text-align: center;">
         <a href="/note/list"
-           class="btn btn-sm btn-success">Back</a>
+           class="btn btn-sm btn-success d-grid gap-2">Back</a>
     </p>
 </body>
 </html>

@@ -10,13 +10,31 @@
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        body {
+      background-color: #ffffcc; /* light yellow background color */
+            }
+    </style>
 </head>
 <body>
 
 <div class="container mt-3">
   <div class="card">
     <div class="card-header">
+        <div style="text-align: right;">
+
+            <h2> <span th:text="${username}"></span></h2>
+
+            <form th:action="@{/logout}" method="post"  >
+                <button type="submit" value="Logout" class="btn btn-outline-primary">Logout</button>
+            </form>
+        </div>
+
       <h2> <span th:text="'Notes: '+ ${listNotes.size()}"></span></h2>
+
+
+
+
       <a href="/note/create" class="btn btn-sm btn-primary d-grid gap-2">Create note</a>
       <form action="/note/search" method="GET">
         <div class="input-group mb-3 mt-3">
@@ -39,14 +57,20 @@
           <td> <div class="d-inline-block text-truncate" style="max-width: 150px;">
             <span th:text="${note.getContent()} "></span> </div></td>
           <td>
-            <div class="text-center">
-<!--            <div class="d-grid gap-3 d-md-flex justify-content-md-end">-->
-            <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}"
-               class="btn btn-sm btn btn-danger">Delete</a>
-            <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}"
-               class="btn btn-sm btn-success">Edit</a>
-              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}"
-                 class="btn btn-sm btn-secondary">Copy link</a>
+            <div class="text-center" >
+
+              <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}">
+                <img src="https://cdn.iconscout.com/icon/free/png-256/delete-737-475058.png" alt="Delete" width="30" height="30">
+              </a>
+
+              <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}" style="padding: 0px 20px;">
+                <img src="https://cdn.icon-icons.com/icons2/629/PNG/512/edit-a-document-interface-symbol-of-stroke_icon-icons.com_57848.png" alt="Edit" width="30" height="30">
+              </a>
+
+              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}" class="link">
+                <img src="https://static-00.iconduck.com/assets.00/link-solid-icon-256x256-9r1n9fwp.png" class="click-btn" alt="Copy link"  width="30" height="30">
+              </a>
+
             </div>
           </td>
 
@@ -55,5 +79,21 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    const $target = document.querySelector(`.link`);
+    const $button = document.querySelector(`.click-btn`);
+
+    $button.addEventListener(`click`, e => {
+        e.preventDefault();
+
+        navigator.clipboard.writeText($target.href).then(() => {
+            console.log('Async: Copying to clipboard was successful!');
+        }, err => {
+            console.error('Async: Could not copy text: ', err);
+        });
+    });
+</script>
+
 </body>
 </html>
