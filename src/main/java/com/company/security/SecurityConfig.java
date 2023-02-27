@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/note/list", true)
+                .loginProcessingUrl("/off")
                 .and()
                 .build();
     }

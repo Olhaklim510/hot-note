@@ -94,12 +94,12 @@
                 <button class="register-button" type="button">SignUp</button>
             </a>
         </div>
+        <!-- Add error message display -->
+        <div class="error">
+            <h4 th:text="${error}"></h4>
+        </div>
     </form>
 
-    <div class="error">
-        <div th:if="${param.error}">
-            <h4 style="color: red">Invalid username or password</h4></div>
-    </div>
 </div>
 <script>
     function validateForm() {
@@ -118,7 +118,6 @@
             alert(errorMessages.join("\n"));
             return false;
         }
-
         return true;
     }
 </script>

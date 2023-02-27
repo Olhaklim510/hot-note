@@ -8,18 +8,18 @@ import com.company.user.UserEntity;
 import com.company.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.security.Principal;
 import java.util.Collections;
 
 @Controller
@@ -81,16 +81,33 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public RedirectView processLogin(@ModelAttribute LoginDto loginDto) {
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/note/list");
+    public ModelAndView processLogin(@ModelAttribute LoginDto loginDto) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("auth/login");
+        String username = loginDto.getUsername();
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginDto.getUsername(),
-                        loginDto.getPassword()));
+        if (userRepository.findByUsername(username).isEmpty()) {
+            modelAndView.addObject("error", "Username not found");
+            return modelAndView;
+        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return redirectView;
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginDto.getUsername(),
+                            loginDto.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            modelAndView.setViewName("redirect:/note/list");
+
+        } catch (UsernameNotFoundException ex) {
+            modelAndView.addObject("error", "Username not found");
+            modelAndView.setViewName("auth/login");
+        } catch (BadCredentialsException ex) {
+            modelAndView.addObject("error", "The password is incorrect");
+            modelAndView.setViewName("auth/login");
+        }
+
+        return modelAndView;
     }
 }
