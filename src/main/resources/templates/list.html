@@ -58,31 +58,19 @@
             <span th:text="${note.getContent()} "></span> </div></td>
           <td>
             <div class="text-center" >
-<!--            <div class="d-grid gap-3 d-md-flex justify-content-md-end">-->
-<!--            <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}"-->
-<!--               class="btn btn-sm btn btn-danger">Delete</a>-->
 
               <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}">
                 <img src="https://cdn.iconscout.com/icon/free/png-256/delete-737-475058.png" alt="Delete" width="30" height="30">
               </a>
 
-<!--            <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}"-->
-<!--               class="btn btn-sm btn-success">Edit</a>-->
-
               <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}" style="padding: 0px 20px;">
                 <img src="https://cdn.icon-icons.com/icons2/629/PNG/512/edit-a-document-interface-symbol-of-stroke_icon-icons.com_57848.png" alt="Edit" width="30" height="30">
               </a>
 
-<!--              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}"-->
-<!--                 class="btn btn-sm btn-secondary">Copy link</a>-->
-
-              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}" id="copy-button">
-                <img src="https://static-00.iconduck.com/assets.00/link-solid-icon-256x256-9r1n9fwp.png" alt="Copy link"  width="30" height="30">
-
-
-
-
+              <a th:href="'/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}" class="link">
+                <img src="https://static-00.iconduck.com/assets.00/link-solid-icon-256x256-9r1n9fwp.png" class="click-btn" alt="Copy link"  width="30" height="30">
               </a>
+
             </div>
           </td>
 
@@ -92,19 +80,20 @@
   </div>
 </div>
 
-            <script type="module">
-                    const copyButton = document.getElementById('copy-button');
-                    copyButton.addEventListener('click', () => {
-                        const linkToCopy = 'https://example.com'; // Replace this with the link that you want to copy
-                        navigator.clipboard.writeText(linkToCopy)
-                            .then(() => {
-                                console.log('Link copied successfully!');
-                            })
-                            .catch((error) => {
-                                console.error('Failed to copy link: ', error);
-                            });
-                    });
+<script type="text/javascript">
+    const $target = document.querySelector(`.link`);
+    const $button = document.querySelector(`.click-btn`);
 
-            </script>
+    $button.addEventListener(`click`, e => {
+        e.preventDefault();
+
+        navigator.clipboard.writeText($target.href).then(() => {
+            console.log('Async: Copying to clipboard was successful!');
+        }, err => {
+            console.error('Async: Could not copy text: ', err);
+        });
+    });
+</script>
+
 </body>
 </html>
