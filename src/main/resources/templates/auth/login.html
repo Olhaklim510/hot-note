@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -83,13 +83,13 @@
 </div>
 
 <div class="login-box">
-    <form action="/login" method="post" onsubmit="return validateForm()">
+    <form action="/login" method="post">
         <div style="text-align: center;">
             <input type="text" placeholder="Username" name="username">
             <input type="password" placeholder="Password" name="password">
         </div>
         <div style="text-align: center;">
-            <button class="login-button" type="submit">Login</button>
+            <a class="login-button" onclick="validateForm()">Login</a>
             <a href="/register">
                 <button class="register-button" type="button">SignUp</button>
             </a>
@@ -116,9 +116,29 @@
 
         if (errorMessages.length > 0) {
             alert(errorMessages.join("\n"));
-            return false;
+        } else {
+            login(username, password);
         }
-        return true;
+    }
+
+    function login(username, password) {
+    var http_request = new XMLHttpRequest();
+
+    http_request.onreadystatechange = function() {
+        if (http_request.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
+           if (http_request.status == 200) {
+                window.location.replace("/note/list");
+           } else {
+               alert(http_request.responseText);
+           }
+        }
+    };
+
+    http_request.open("POST", "/login", true);
+    http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http_request.send("username=" + username + "&password=" + password);
+
+    http_request.send();
     }
 </script>
 </body>

@@ -1,6 +1,8 @@
-package com.company.note;
+package com.company.note.mvc;
 
 import com.company.exception.ShareException;
+import com.company.note.Note;
+import com.company.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
