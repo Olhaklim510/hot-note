@@ -1,14 +1,8 @@
 package com.company.note;
 
 import com.company.note.noteEnum.NoteType;
-import com.company.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.stereotype.Component;
 
 

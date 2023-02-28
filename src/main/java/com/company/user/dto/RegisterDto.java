@@ -1,9 +1,9 @@
-package com.company.dto;
+package com.company.user.dto;
 
 import lombok.Data;
 
 @Data
-public class LoginDto {
+public class RegisterDto {
     private String username;
     private String password;
 }
