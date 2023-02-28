@@ -1,7 +1,7 @@
-package com.company.mvc;
+package com.company.user.mvc;
 
-import com.company.dto.LoginDto;
-import com.company.dto.RegisterDto;
+import com.company.user.dto.LoginDto;
+import com.company.user.dto.RegisterDto;
 import com.company.user.Role;
 import com.company.user.RoleRepository;
 import com.company.user.UserEntity;
