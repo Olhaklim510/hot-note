@@ -96,6 +96,7 @@ public class AuthController {
         }
 
         Authentication authentication = null;
+
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -112,6 +113,7 @@ public class AuthController {
             modelAndView.addObject("error", "The password is incorrect");
             modelAndView.setViewName("auth/login");
         }
+
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(authentication);
         request.getSession(true).setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
