@@ -1,6 +1,8 @@
-package com.company.note;
+package com.company.note.mvc;
 
 import com.company.exception.ShareException;
+import com.company.note.Note;
+import com.company.note.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ public class NoteController {
     @GetMapping("/list")
     public ModelAndView getListAllNotes(Authentication authentication) {
         ModelAndView result = new ModelAndView("list");
+        result.addObject("username",authentication.getName());
         result.addObject("listNotes", noteService
                 .findAllAvailableForSpecificUser(authentication.getName()));
         return result;
@@ -64,6 +67,7 @@ public class NoteController {
     @GetMapping("/search")
     public ModelAndView searchNote(String pattern, Authentication authentication) {
         ModelAndView result = new ModelAndView("list");
+        result.addObject("username",authentication.getName());
         result.addObject("listNotes", noteService.searchNote(authentication.getName(), pattern));
         return result;
     }

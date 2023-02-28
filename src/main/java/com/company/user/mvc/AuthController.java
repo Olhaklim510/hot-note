@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import java.util.Collections;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
@@ -55,7 +56,7 @@ public class AuthController {
 
         if (userRepository.findByUsername(username).isPresent()) {
             modelAndView.addObject("error", "Username already exists");
-            return modelAndView; // return the ModelAndView object with error message
+            return modelAndView; 
         }
 
         if (username.length() < 5 || username.length() > 50) {
@@ -85,6 +86,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+
     public ModelAndView processLogin(@ModelAttribute LoginDto loginDto, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("auth/login");
