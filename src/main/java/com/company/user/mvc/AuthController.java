@@ -96,7 +96,6 @@ public class AuthController {
         }
 
         Authentication authentication = null;
-
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
