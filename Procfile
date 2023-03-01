@@ -1,2 +1,3 @@
-web: java -Dserver.port=9999 -jar build/libs/hot-note-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar build/libs/hot-note-0.0.1-SNAPSHOT.jar
+
 
