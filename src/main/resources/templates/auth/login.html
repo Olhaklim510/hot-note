@@ -83,17 +83,18 @@
 </div>
 
 <div class="login-box">
-    <form action="/login" method="post">
+    <form action="/login" method="post" onsubmit="return validateForm()">
         <div style="text-align: center;">
             <input type="text" placeholder="Username" name="username">
             <input type="password" placeholder="Password" name="password">
         </div>
         <div style="text-align: center;">
-            <a class="login-button" onclick="validateForm()">Login</a>
+            <button class="login-button" type="submit">Login</button>
             <a href="/register">
                 <button class="register-button" type="button">SignUp</button>
             </a>
         </div>
+        <!-- Add error message display -->
         <div class="error">
             <h4 th:text="${error}"></h4>
         </div>
@@ -115,29 +116,9 @@
 
         if (errorMessages.length > 0) {
             alert(errorMessages.join("\n"));
-        } else {
-            login(username, password);
+            return false;
         }
-    }
-
-    function login(username, password) {
-    var http_request = new XMLHttpRequest();
-
-    http_request.onreadystatechange = function() {
-        if (http_request.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
-           if (http_request.status == 200) {
-                window.location.replace("/note/list");
-           } else {
-               alert(http_request.responseText);
-           }
-        }
-    };
-
-    http_request.open("POST", "/login", true);
-    http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http_request.send("username=" + username + "&password=" + password);
-
-    http_request.send();
+        return true;
     }
 </script>
 </body>
