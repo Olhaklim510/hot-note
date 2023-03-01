@@ -20,4 +20,6 @@ public class Note {
     @Enumerated(EnumType.STRING)
     @Column(name = "note_type")
     private NoteType noteType;
+    @Transient
+    private boolean access;
 }

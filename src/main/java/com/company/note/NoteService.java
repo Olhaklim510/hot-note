@@ -3,6 +3,7 @@ package com.company.note;
 import com.company.exception.ContentException;
 import com.company.exception.TitleException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -47,6 +48,17 @@ public class NoteService {
 
     public synchronized Note getById(String id) {
         return noteRepository.findById(id).orElseThrow(() -> new NoSuchElementException("This note doesn't exist"));
+    }
+    public List<Note> findAllAvailableForSpecificUserAndProvideAccessToChanges(String username, Authentication authentication){
+        List<Note> ls = findAllAvailableForSpecificUser(username);
+        for (Note l : ls) {
+            if (!authentication.getName().equals(l.getOwner())) {
+                l.setAccess(false);
+            } else {
+                l.setAccess(true);
+            }
+        }
+        return ls;
     }
 
     public synchronized List<Note> findAllAvailableForSpecificUser(String username) {
