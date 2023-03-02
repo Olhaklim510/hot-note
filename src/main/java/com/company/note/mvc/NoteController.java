@@ -20,14 +20,14 @@ public class NoteController {
         ModelAndView result = new ModelAndView("list");
         result.addObject("username",authentication.getName());
         result.addObject("listNotes", noteService
-                .findAllAvailableForSpecificUser(authentication.getName()));
+                .findAllAvailableForSpecificUserAndProvideAccessToChanges(authentication.getName(), authentication));
         return result;
     }
 
     @GetMapping("/delete")
     public ModelAndView deleteNote(Note note, Authentication authentication) {
         if (!authentication.getName().equals(note.getOwner())) {
-            throw new ShareException("This note does not exist :(");
+            throw new ShareException("You do not have permission to edit this note :(");
         }
         ModelAndView result = new ModelAndView("redirect:/note/list");
         noteService.deleteById(note.getId());
@@ -51,7 +51,7 @@ public class NoteController {
     @GetMapping("/edit")
     public ModelAndView getEditView(Note note, Authentication authentication) {
         if (!authentication.getName().equals(note.getOwner())) {
-            throw new ShareException("This note does not exist :(");
+            throw new ShareException("You do not have permission to edit this note :(");
         }
         ModelAndView result = new ModelAndView("edit");
         result.addObject("editNote", noteService.getById(note.getId()));
@@ -74,9 +74,7 @@ public class NoteController {
 
     @GetMapping("/share")
     public ModelAndView getShareView(Note note, Authentication authentication) {
-        if (!authentication.getName().equals(note.getOwner())) {
-            throw new ShareException("This note does not exist :(");
-        }
+
         ModelAndView result = new ModelAndView("share");
         result.addObject("shareNote", noteService.getById(note.getId()));
 

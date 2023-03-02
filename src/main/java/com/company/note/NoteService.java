@@ -3,6 +3,7 @@ package com.company.note;
 import com.company.exception.ContentException;
 import com.company.exception.TitleException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -60,5 +61,17 @@ public class NoteService {
                         note.getContent().toLowerCase().contains(pattern.toLowerCase())
                                 || note.getTitle().toLowerCase().contains(pattern.toLowerCase()))
                 .toList();
+    }
+
+    public List<Note> findAllAvailableForSpecificUserAndProvideAccessToChanges(String username, Authentication authentication){
+        List<Note> ls = findAllAvailableForSpecificUser(username);
+        for (Note l : ls) {
+            if (!authentication.getName().equals(l.getOwner())) {
+                l.setAccess(false);
+            } else {
+                l.setAccess(true);
+            }
+        }
+        return ls;
     }
 }
