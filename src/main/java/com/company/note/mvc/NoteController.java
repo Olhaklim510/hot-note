@@ -25,7 +25,8 @@ public class NoteController {
     }
 
     @GetMapping("/delete")
-    public ModelAndView deleteNote(Note note, Authentication authentication) {
+    public ModelAndView deleteNote(Note noteFromUi, Authentication authentication) {
+        Note note = noteService.getById(noteFromUi.getId());
         if (!authentication.getName().equals(note.getOwner())) {
             throw new ShareException("You do not have permission to edit this note :(");
         }
@@ -49,12 +50,14 @@ public class NoteController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView getEditView(Note note, Authentication authentication) {
+    public ModelAndView getEditView(Note noteFromUi, Authentication authentication) {
+
+        Note note = noteService.getById(noteFromUi.getId());
         if (!authentication.getName().equals(note.getOwner())) {
             throw new ShareException("You do not have permission to edit this note :(");
         }
         ModelAndView result = new ModelAndView("edit");
-        result.addObject("editNote", noteService.getById(note.getId()));
+        result.addObject("editNote", note);
         return result;
     }
 
@@ -73,10 +76,10 @@ public class NoteController {
     }
 
     @GetMapping("/share")
-    public ModelAndView getShareView(Note note, Authentication authentication) {
-
+    public ModelAndView getShareView(Note noteFromUi, Authentication authentication) {
+        Note note = noteService.getById(noteFromUi.getId());
         ModelAndView result = new ModelAndView("share");
-        result.addObject("shareNote", noteService.getById(note.getId()));
+        result.addObject("shareNote", note);
 
         return result;
     }

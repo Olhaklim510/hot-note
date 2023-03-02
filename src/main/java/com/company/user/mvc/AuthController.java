@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,9 +29,6 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
-//    private final UserRepository userRepository;
-//    private final RoleRepository roleRepository;
-//    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
     public String showRegistrationForm() {
@@ -67,12 +63,6 @@ public class AuthController {
             return modelAndView;
         }
 
-//        UserEntity user = new UserEntity();
-//        user.setUsername(username);
-//        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-//        Role role = roleRepository.findByName("USER").get();
-//        user.setRoles(Collections.singletonList(role));
-//        userRepository.save(user);
         userService.addUser(username,password);
         modelAndView.setViewName("redirect:auth/login");
         return modelAndView;
