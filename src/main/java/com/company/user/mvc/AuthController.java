@@ -1,11 +1,8 @@
 package com.company.user.mvc;
 
+import com.company.user.*;
 import com.company.user.dto.LoginDto;
 import com.company.user.dto.RegisterDto;
-import com.company.user.Role;
-import com.company.user.RoleRepository;
-import com.company.user.UserEntity;
-import com.company.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,9 +29,10 @@ import static org.springframework.security.web.context.HttpSessionSecurityContex
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+//    private final UserRepository userRepository;
+//    private final RoleRepository roleRepository;
+//    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
     public String showRegistrationForm() {
@@ -54,7 +52,7 @@ public class AuthController {
             return modelAndView;
         }
 
-        if (userRepository.findByUsername(username).isPresent()) {
+        if (userService.findByUsername(username).isPresent()) {
             modelAndView.addObject("error", "Username already exists");
             return modelAndView; 
         }
@@ -69,12 +67,13 @@ public class AuthController {
             return modelAndView;
         }
 
-        UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        Role role = roleRepository.findByName("USER").get();
-        user.setRoles(Collections.singletonList(role));
-        userRepository.save(user);
+//        UserEntity user = new UserEntity();
+//        user.setUsername(username);
+//        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+//        Role role = roleRepository.findByName("USER").get();
+//        user.setRoles(Collections.singletonList(role));
+//        userRepository.save(user);
+        userService.addUser(username,password);
         modelAndView.setViewName("redirect:auth/login");
         return modelAndView;
     }
@@ -92,7 +91,7 @@ public class AuthController {
         modelAndView.setViewName("auth/login");
         String username = loginDto.getUsername();
 
-        if (userRepository.findByUsername(username).isEmpty()) {
+        if (userService.findByUsername(username).isEmpty()) {
             modelAndView.addObject("error", "Username not found");
             return modelAndView;
         }
