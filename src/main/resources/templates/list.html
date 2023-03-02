@@ -72,22 +72,33 @@
                     </td>
                     <td>
                         <div class="text-center">
+                            <div th:if="${note.access}" class="form-inline">
+                                <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}">
+                                    <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-delete-icon.png"
+                                         alt="Delete" width="30" height="30">
+                                </a>
 
-                            <a th:href="'/note/delete?id='+${note.getId()}+'&owner='+${note.getOwner()}">
-                                <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-delete-icon.png"
-                                     alt="Delete" width="30" height="30">
-                            </a>
+                                <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}"
+                                   style="padding: 0px 20px;">
+                                    <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-document-edit-icon.png"
+                                         alt="Edit" width="30" height="30">
+                                </a>
 
-                            <a th:href="'/note/edit?id='+${note.getId()}+'&owner='+${note.getOwner()}"
-                               style="padding: 0px 20px;">
-                                <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-document-edit-icon.png"
-                                     alt="Edit" width="30" height="30">
-                            </a>
+                                <a th:href="'https://hot-note.herokuapp.com/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}" th:id="'copy-link-'+${note.getId()}">
+                                    <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-copy-icon.png"
+                                         class="click-btn" alt="Copy link" width="30" height="30">
+                                </a>
 
-                            <a th:href="'http://localhost:9999/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}" th:id="'copy-link-'+${note.getId()}">
-                                <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-copy-icon.png"
-                                     class="click-btn" alt="Copy link" width="30" height="30">
-                            </a>
+                            </div>
+
+                            <div th:unless="${note.access}" class="form-inline">
+                                <a th:href="'https://hot-note.herokuapp.com/note/share?id='+${note.getId()}+'&owner='+${note.getOwner()}">
+                                    <img src="https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-edit-copy-icon.png"
+                                         class="click-btn" alt="Copy link" width="30" height="30">
+                                </a>
+
+                            </div>
+
 
                         </div>
                     </td>
