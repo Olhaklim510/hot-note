@@ -35,6 +35,20 @@ public class UserService implements UserDetailsService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
+    @PostConstruct
+    public void defaultUserCreation() {
+        Optional<UserEntity> adminUser = userRepository.findByUsername("admin");
+        if (adminUser.isPresent()) {
+            return;
+        }
+        UserEntity user = new UserEntity();
+        user.setUsername("admin");
+        user.setPassword(passwordEncoder.encode("super_secret_password"));
+        Role role = roleRepository.findByName("ADMIN").get();
+        user.setRoles(Collections.singletonList(role));
+        userRepository.save(user);
+    }
+
     public void addUser(String username, String password){
         UserEntity user = new UserEntity();
         user.setUsername(username);
